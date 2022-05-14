@@ -1,0 +1,32 @@
+name: FreeRDP Proxy Image Buildx
+
+on:
+  push:
+    # branches:
+    #   - master
+    tags:
+      - v*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Get tag
+      id: get_tag
+      run: |
+        TAG=$(basename ${GITHUB_REF})
+        echo "::set-output name=TAG::$TAG"
+
+    - name: Build Docker Image for GitHub
+      uses: ilteoood/docker_buildx@master
+      with:
+        publish: true
+        dockerServer: ghcr.io
+        imageName: ghcr.io/wojiushixiaobai/freerdp-proxy
+        dockerUser: wojiushixiaobai
+        dockerPassword: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.get_tag.outputs.TAG }},latest
+        dockerFile: allinone/Dockerfile
+        platform: linux/amd64,linux/arm64
+        buildArg: Version=${{ steps.get_tag.outputs.TAG }}
