@@ -16,7 +16,6 @@ ARG BUILD_DEPENDENCIES="              \
     libcairo2-dev"
 
 RUN set -ex \
-    && sed -i "s@http://.*.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list \
     && apt update \
     && apt install -y $BUILD_DEPENDENCIES
 
@@ -31,7 +30,7 @@ FROM ubuntu:focal
 WORKDIR /opt/freerdp
 ENV LANG=en_US.utf8
 
-RUN sed -i "s@http://.*.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list \
+RUN set -ex \
     && apt update \
     && apt install -y libssl-dev openssl \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
