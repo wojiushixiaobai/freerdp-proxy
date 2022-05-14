@@ -27,6 +27,6 @@ jobs:
         dockerUser: wojiushixiaobai
         dockerPassword: ${{ secrets.GITHUB_TOKEN }}
         tag: ${{ steps.get_tag.outputs.TAG }},latest
-        dockerFile: allinone/Dockerfile
+        dockerFile: Dockerfile
         platform: linux/amd64,linux/arm64
         buildArg: Version=${{ steps.get_tag.outputs.TAG }}
