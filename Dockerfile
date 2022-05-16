@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:jammy
 WORKDIR /opt
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
@@ -15,7 +15,7 @@ RUN cmake -DCHANNEL_URBDRC=OFF -DWITH_PROXY=ON -DWITH_SHADOW=OFF -DWITH_SERVER=O
 RUN cmake --build . -j $(nproc)
 RUN cmake --build . --target install
 
-FROM ubuntu:focal
+FROM ubuntu:jammy
 WORKDIR /opt/freerdp
 ARG TARGETARCH
 ENV LANG=en_US.utf8
