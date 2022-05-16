@@ -3,21 +3,10 @@ WORKDIR /opt
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG BUILD_DEPENDENCIES="              \
-    build-essential                   \
-    autotools-dev                     \
-    git                               \
-    cmake                             \
-    pkg-config                        \
-    clang-format                      \
-    libssl-dev                        \
-    libsystemd-dev                    \
-    libz-dev                          \
-    libcairo2-dev"
-
 RUN set -ex \
     && apt update \
     && apt install -y $BUILD_DEPENDENCIES
+    && apt install -y ninja-build build-essential debhelper cdbs dpkg-dev autotools-dev cmake pkg-config xmlto libssl-dev docbook-xsl xsltproc git libsystemd-dev libz-dev
 
 RUN git clone https://github.com/FreeRDP/FreeRDP /opt/FreeRDP
 WORKDIR /opt/FreeRDP
@@ -27,7 +16,6 @@ RUN cmake --build . -j $(nproc)
 RUN cmake --build . --target install
 
 FROM ubuntu:focal
-LABEL org.opencontainers.image.source = "https://github.com/wojiushixiaobai/freerdp-proxy"
 WORKDIR /opt/freerdp
 ARG TARGETARCH
 ENV LANG=en_US.utf8
