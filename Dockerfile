@@ -27,7 +27,9 @@ RUN cmake --build . -j $(nproc)
 RUN cmake --build . --target install
 
 FROM ubuntu:focal
+LABEL org.opencontainers.image.source = "https://github.com/wojiushixiaobai/freerdp-proxy"
 WORKDIR /opt/freerdp
+ARG TARGETARCH
 ENV LANG=en_US.utf8
 
 RUN set -ex \
