@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -ex \
     && apt update \
-    && apt install -y $BUILD_DEPENDENCIES
     && apt install -y ninja-build build-essential debhelper cdbs dpkg-dev autotools-dev cmake pkg-config xmlto libssl-dev docbook-xsl xsltproc git libsystemd-dev libz-dev
 
 RUN git clone https://github.com/FreeRDP/FreeRDP /opt/FreeRDP
