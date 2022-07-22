@@ -1,4 +1,4 @@
-FROM ubuntu:jammy
+FROM ubuntu:20.04
 WORKDIR /opt
 ARG TARGETARCH
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,7 +16,7 @@ RUN set -ex \
     && cmake --build . --target install \
     && rm -f /usr/local/bin/xfreerdp
 
-FROM ubuntu:jammy
+FROM ubuntu:20.04
 WORKDIR /opt/freerdp
 ARG TARGETARCH
 ENV LANG=en_US.utf8
